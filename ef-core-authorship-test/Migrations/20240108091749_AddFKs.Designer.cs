@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ef_core_authorship_test;
 
@@ -10,9 +11,11 @@ using ef_core_authorship_test;
 namespace ef_core_authorship_test.Migrations
 {
     [DbContext(typeof(AuthorshipDbContext))]
-    partial class AuthorshipDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240108091749_AddFKs")]
+    partial class AddFKs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

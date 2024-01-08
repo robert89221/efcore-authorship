@@ -30,15 +30,19 @@ namespace ef_core_authorship_test
     public int Year { get; set; } = Year;
     public int Pages { get; set; } = Pages;
 
+    public List<Author> Authors { get; set; } = [];
+
     public override string ToString()  =>  $"{Title} ({Year}), {Category}, {Pages} pages";
   }
-  
+
 
   internal class Author(string Name)
   {
     public int Id { get; set; }
 
     public string Name { get; set; } = Name;
+
+    public List<Book> Books { get; set; } = [];
   }
 
 }
