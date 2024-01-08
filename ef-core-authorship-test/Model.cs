@@ -21,16 +21,31 @@ namespace ef_core_authorship_test
   }
 
 
-  internal class Book(string Title, string Category, int Year, int Pages)
+  internal class Book
   {
     public int Id { get; set; }
 
-    public string Title { get; set; } = Title;
-    public string Category { get; set; } = Category;
-    public int Year { get; set; } = Year;
-    public int Pages { get; set; } = Pages;
+    public string Title { get; set; }
+    public string Category { get; set; }
+    public int Year { get; set; }
+    public int Pages { get; set; }
 
-    public List<Author> Authors { get; set; } = [];
+    public List<Author> Authors { get; set; }
+
+    //  EF core kräver en vanlig eller primär ctor i detta formatet, med argument som har samma namn som kolumnerna i tabellen
+    public Book(string Title, string Category, int Year, int Pages) => (this.Title, this.Category, this.Year, this.Pages, this.Authors) = (Title, Category, Year, Pages, []);
+
+    //  övriga ctors kan läggas till för bekvämlighet
+
+    public Book() => (Title, Category, Year, Pages, Authors) = ("", "", 0, 0, []);
+
+    public Book(string t, string c, int y, int p, params string[] a)
+    {
+      (Title, Category, Year, Pages, Authors) = (t, c, y, p, []);
+      foreach (var auth in a)    Authors.Add(new Author(auth));
+    }
+
+    public Book(string t, string c, int y, int p, List<Author> a) => (Title, Category, Year, Pages, Authors) = (t, c, y, p, a);
 
     public override string ToString()  =>  $"{Title} ({Year}), {Category}, {Pages} pages";
   }
