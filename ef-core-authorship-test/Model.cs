@@ -1,11 +1,12 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 
 namespace ef_core_authorship_test
 {
 
-  internal class AuthorshipDbContext(string ConnStr = @"Data Source=(localdb)\MSSQLLocalDB; Initial Catalog=Authorship; Integrated Security=True") : DbContext
+  internal class AuthorshipDbContext(string ConnStr = @"Data Source=.\database.sqlite3") : DbContext
   {
     string ConnStr { get; set; } = ConnStr;
 
@@ -14,7 +15,7 @@ namespace ef_core_authorship_test
 
     override protected void OnConfiguring(DbContextOptionsBuilder opts)
     {
-      opts.UseSqlServer(ConnStr);
+      opts.UseSqlite(ConnStr);
     }
 
     //override protected void OnModelCreating(ModelBuilder mdl) {}
@@ -25,8 +26,8 @@ namespace ef_core_authorship_test
   {
     public int Id { get; set; }
 
-    public string Title { get; set; }
-    public string Category { get; set; }
+    [MaxLength(50)] public string Title { get; set; }
+    [MaxLength(50)] public string Category { get; set; }
     public int Year { get; set; }
     public int Pages { get; set; }
 
@@ -47,7 +48,7 @@ namespace ef_core_authorship_test
   {
     public int Id { get; set; }
 
-    public string Name { get; set; }
+    [MaxLength(50)] public string Name { get; set; }
 
     //  för junction-tabellen
     public List<Book> Books { get; set; }

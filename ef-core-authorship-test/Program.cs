@@ -1,7 +1,6 @@
 ﻿
 using ef_core_authorship_test;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
 
 
 var db = new AuthorshipDbContext();
